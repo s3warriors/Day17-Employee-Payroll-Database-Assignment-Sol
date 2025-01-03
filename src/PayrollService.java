@@ -67,6 +67,18 @@ public class PayrollService {
             executeUpdate(connection, updateGenderQuery);
             System.out.println("Gender column added and updated.");
 
+            // UC 7: Perform aggregation queries
+            String aggregationQuery = """
+                SELECT gender, 
+                       SUM(salary) AS total_salary, 
+                       AVG(salary) AS avg_salary, 
+                       MIN(salary) AS min_salary, 
+                       MAX(salary) AS max_salary, 
+                       COUNT(*) AS count
+                FROM employee_payroll
+                GROUP BY gender
+            """;
+            executeQuery(connection, aggregationQuery);
 
 
         } catch (SQLException e) {
