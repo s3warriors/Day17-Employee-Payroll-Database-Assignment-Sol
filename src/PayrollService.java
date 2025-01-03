@@ -103,6 +103,14 @@ public class PayrollService {
             executeUpdate(connection, alterTablePayrollDetails);
             System.out.println("Payroll details added to the table.");
 
+            // UC 10: Assign Terissa to Sales and Marketing department
+            String insertTerissaQuery = """
+                INSERT INTO employee_payroll (name, salary, start_date, gender, department)
+                VALUES ('Terissa', 80000, '2023-05-01', 'F', 'Sales and Marketing')
+            """;
+            executeUpdate(connection, insertTerissaQuery);
+            System.out.println("Terissa added to Sales and Marketing department.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
