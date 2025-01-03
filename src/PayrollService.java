@@ -91,6 +91,18 @@ public class PayrollService {
             executeUpdate(connection, alterTableExtendQuery);
             System.out.println("Employee payroll table extended with new fields.");
 
+            // UC 9: Add payroll details (Basic Pay, Deductions, Taxable Pay, Income Tax, Net Pay)
+            String alterTablePayrollDetails = """
+                ALTER TABLE employee_payroll 
+                ADD COLUMN basic_pay DOUBLE, 
+                ADD COLUMN deductions DOUBLE, 
+                ADD COLUMN taxable_pay DOUBLE, 
+                ADD COLUMN income_tax DOUBLE, 
+                ADD COLUMN net_pay DOUBLE
+            """;
+            executeUpdate(connection, alterTablePayrollDetails);
+            System.out.println("Payroll details added to the table.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
