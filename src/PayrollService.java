@@ -17,6 +17,18 @@ public class PayrollService {
             executeUpdate(connection, "USE " + DB_NAME);
 
 
+            // UC 2: Create employee_payroll table
+            String createTableQuery = """
+                CREATE TABLE IF NOT EXISTS employee_payroll (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100),
+                    salary DOUBLE,
+                    start_date DATE
+                )
+            """;
+            executeUpdate(connection, createTableQuery);
+            System.out.println("Employee payroll table created.");
+
 
         } catch (SQLException e) {
             e.printStackTrace();
