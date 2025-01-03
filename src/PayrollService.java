@@ -51,6 +51,24 @@ public class PayrollService {
             """;
             executeQuery(connection, selectDateRangeQuery);
 
+
+            // UC 6: Add gender column and update gender for employees
+            String alterTableQuery = "ALTER TABLE employee_payroll ADD COLUMN gender CHAR(1) AFTER name";
+            executeUpdate(connection, alterTableQuery);
+
+            String updateGenderQuery = """
+                UPDATE employee_payroll 
+                SET gender = CASE 
+                    WHEN name = 'Bill' THEN 'M' 
+                    WHEN name = 'Charlie' THEN 'M' 
+                    ELSE 'F' 
+                END
+            """;
+            executeUpdate(connection, updateGenderQuery);
+            System.out.println("Gender column added and updated.");
+
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
