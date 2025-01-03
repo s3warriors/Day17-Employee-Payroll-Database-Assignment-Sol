@@ -41,6 +41,15 @@ public class PayrollService {
             String selectAllQuery = "SELECT * FROM employee_payroll";
             executeQuery(connection, selectAllQuery);
 
+            // UC 5: Retrieve salary for a particular employee and employees in a date range
+            String selectSalaryQuery = "SELECT salary FROM employee_payroll WHERE name = 'Bill'";
+            executeQuery(connection, selectSalaryQuery);
+
+            String selectDateRangeQuery = """
+                SELECT * FROM employee_payroll
+                WHERE start_date BETWEEN CAST('2022-01-01' AS DATE) AND NOW()
+            """;
+            executeQuery(connection, selectDateRangeQuery);
 
         } catch (SQLException e) {
             e.printStackTrace();
