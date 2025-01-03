@@ -16,6 +16,26 @@ public class PayrollService {
             System.out.println("Database created or already exists.");
             executeUpdate(connection, "USE " + DB_NAME);
 
+            // UC 2: Create employee_payroll table
+            String createTableQuery = """
+                CREATE TABLE IF NOT EXISTS employee_payroll (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100),
+                    salary DOUBLE,
+                    start_date DATE
+                )
+            """;
+            executeUpdate(connection, createTableQuery);
+            System.out.println("Employee payroll table created.");
+
+
+            // UC 3: Insert data into employee_payroll table
+            String insertQuery = "INSERT INTO employee_payroll (name, salary, start_date) VALUES " +
+                    "('John', 50000, '2022-01-01'), " +
+                    "('Bill', 60000, '2022-02-01'), " +
+                    "('Charlie', 70000, '2023-01-01')";
+            executeUpdate(connection, insertQuery);
+            System.out.println("Employee payroll data inserted.");
 
 
         } catch (SQLException e) {
