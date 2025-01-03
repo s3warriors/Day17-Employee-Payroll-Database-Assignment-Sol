@@ -81,6 +81,16 @@ public class PayrollService {
             executeQuery(connection, aggregationQuery);
 
 
+            // UC 8: Extend employee_payroll table to include phone, address, and department
+            String alterTableExtendQuery = """
+                ALTER TABLE employee_payroll 
+                ADD COLUMN phone VARCHAR(15), 
+                ADD COLUMN address VARCHAR(255) DEFAULT 'Not Available',
+                ADD COLUMN department VARCHAR(100) NOT NULL
+            """;
+            executeUpdate(connection, alterTableExtendQuery);
+            System.out.println("Employee payroll table extended with new fields.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
