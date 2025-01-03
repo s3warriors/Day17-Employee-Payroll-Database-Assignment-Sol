@@ -124,6 +124,10 @@ public class PayrollService {
             executeUpdate(connection, createEmployeeDepartmentTable);
             System.out.println("Employee-Department table created.");
 
+            // UC 12: Ensure all previous queries work with the new structure
+            executeQuery(connection, selectAllQuery);
+            executeQuery(connection, aggregationQuery);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
