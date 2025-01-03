@@ -111,6 +111,19 @@ public class PayrollService {
             executeUpdate(connection, insertTerissaQuery);
             System.out.println("Terissa added to Sales and Marketing department.");
 
+            // UC 11: Create Employee-Department table for Many-to-Many relationships
+            String createEmployeeDepartmentTable = """
+                CREATE TABLE IF NOT EXISTS employee_department (
+                    employee_id INT,
+                    department_id INT,
+                    PRIMARY KEY (employee_id, department_id),
+                    FOREIGN KEY (employee_id) REFERENCES employee_payroll(id),
+                    FOREIGN KEY (department_id) REFERENCES departments(id)
+                )
+            """;
+            executeUpdate(connection, createEmployeeDepartmentTable);
+            System.out.println("Employee-Department table created.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
