@@ -37,17 +37,9 @@ public class PayrollService {
             executeUpdate(connection, insertQuery);
             System.out.println("Employee payroll data inserted.");
 
-            // UC 2: Create employee_payroll table
-            String createTableQuery = """
-                CREATE TABLE IF NOT EXISTS employee_payroll (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(100),
-                    salary DOUBLE,
-                    start_date DATE
-                )
-            """;
-            executeUpdate(connection, createTableQuery);
-            System.out.println("Employee payroll table created.");
+            // UC 4: Retrieve all data from employee_payroll table
+            String selectAllQuery = "SELECT * FROM employee_payroll";
+            executeQuery(connection, selectAllQuery);
 
 
         } catch (SQLException e) {
@@ -58,6 +50,20 @@ public class PayrollService {
     private static void executeUpdate(Connection connection, String query) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
+        }
+    }
+    private static void executeQuery(Connection connection, String query) throws SQLException {
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.print(metaData.getColumnName(i) + ": " + resultSet.getString(i) + " ");
+                }
+                System.out.println();
+            }
         }
     }
 
